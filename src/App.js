@@ -4,18 +4,53 @@ import {
   withScriptjs,
   GoogleMap,
   Marker,
-  InfoWindow
+  InfoWindow,
 } from "react-google-maps";
-import * as parkData from "./data/skateboard-parks.json";
-import mapStyles from "./mapStyles";
+
+import bases from "./bases";
+
+function getDetailedInfor() {
+  return "Client";
+}
+
+// function Map() {
+//   const [selectedAddress, setSelectedAddress] = useState(null);
+
+//   return (
+//     <GoogleMap
+//       defaultZoom={10}
+//       defaultCenter={{ lat: -37.83764, lng: 145.16399 }}
+//     >
+//       {bases.map((base) => (
+//         <Marker
+//           key={base.id}
+//           position={{ lat: base.lat, lng: base.lng }}
+//           onClick={() => {
+//             setSelectedAddress(base);
+//           }}
+//         />
+//       ))}
+
+//       {selectedAddress && (
+//         <InfoWindow
+//           position={{ lat: selectedAddress.lat, lng: selectedAddress.lng }}
+//           onCloseClick={() => {
+//             console.log("clicked the close");
+//             setSelectedAddress(null);
+//           }}
+//         ></InfoWindow>
+//       )}
+//     </GoogleMap>
+//   );
+// }
 
 function Map() {
-  const [selectedPark, setSelectedPark] = useState(null);
+  const [selectedAddress, setSelectedAddress] = useState(null);
 
   useEffect(() => {
-    const listener = e => {
+    const listener = (e) => {
       if (e.key === "Escape") {
-        setSelectedPark(null);
+        setSelectedAddress(null);
       }
     };
     window.addEventListener("keydown", listener);
@@ -26,42 +61,25 @@ function Map() {
   }, []);
 
   return (
-    <GoogleMap
-      defaultZoom={10}
-      defaultCenter={{ lat: 45.4211, lng: -75.6903 }}
-      defaultOptions={{ styles: mapStyles }}
-    >
-      {parkData.features.map(park => (
+    <GoogleMap defaultZoom={10} defaultCenter={{ lat: -37.8004, lng: 145.15 }}>
+      {bases.map((base) => (
         <Marker
-          key={park.properties.PARK_ID}
-          position={{
-            lat: park.geometry.coordinates[1],
-            lng: park.geometry.coordinates[0]
-          }}
+          key={base.id}
+          position={{ lat: base.lat, lng: base.lng }}
           onClick={() => {
-            setSelectedPark(park);
-          }}
-          icon={{
-            url: `/skateboarding.svg`,
-            scaledSize: new window.google.maps.Size(25, 25)
+            setSelectedAddress(base);
           }}
         />
       ))}
 
-      {selectedPark && (
+      {selectedAddress && (
         <InfoWindow
           onCloseClick={() => {
-            setSelectedPark(null);
+            setSelectedAddress(null);
           }}
-          position={{
-            lat: selectedPark.geometry.coordinates[1],
-            lng: selectedPark.geometry.coordinates[0]
-          }}
+          position={{ lat: selectedAddress.lat, lng: selectedAddress.lng }}
         >
-          <div>
-            <h2>{selectedPark.properties.NAME}</h2>
-            <p>{selectedPark.properties.DESCRIPTIO}</p>
-          </div>
+          <div>Hehe</div>
         </InfoWindow>
       )}
     </GoogleMap>
@@ -74,9 +92,7 @@ export default function App() {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <MapWrapped
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${
-          process.env.REACT_APP_GOOGLE_KEY
-        }`}
+        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${"AIzaSyAcac0nkqdh - FishUW2e658_ - BFWaSBsNE"}`}
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `100%` }} />}
         mapElement={<div style={{ height: `100%` }} />}
