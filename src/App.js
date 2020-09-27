@@ -6,43 +6,12 @@ import {
   Marker,
   InfoWindow,
 } from "react-google-maps";
+//The data
+import bases from "./data/bases";
+import destinations from "./data/destinations";
 
-import bases from "./bases";
-
-function getDetailedInfor() {
-  return "Client";
-}
-
-// function Map() {
-//   const [selectedAddress, setSelectedAddress] = useState(null);
-
-//   return (
-//     <GoogleMap
-//       defaultZoom={10}
-//       defaultCenter={{ lat: -37.83764, lng: 145.16399 }}
-//     >
-//       {bases.map((base) => (
-//         <Marker
-//           key={base.id}
-//           position={{ lat: base.lat, lng: base.lng }}
-//           onClick={() => {
-//             setSelectedAddress(base);
-//           }}
-//         />
-//       ))}
-
-//       {selectedAddress && (
-//         <InfoWindow
-//           position={{ lat: selectedAddress.lat, lng: selectedAddress.lng }}
-//           onCloseClick={() => {
-//             console.log("clicked the close");
-//             setSelectedAddress(null);
-//           }}
-//         ></InfoWindow>
-//       )}
-//     </GoogleMap>
-//   );
-// }
+//TODO
+function getDetailedInfor(base, destination) {}
 
 function Map() {
   const [selectedAddress, setSelectedAddress] = useState(null);
@@ -66,6 +35,10 @@ function Map() {
         <Marker
           key={base.id}
           position={{ lat: base.lat, lng: base.lng }}
+          icon={{
+            url: "/home.svg",
+            scaledSize: new window.google.maps.Size(25, 25),
+          }}
           onClick={() => {
             setSelectedAddress(base);
           }}
@@ -79,7 +52,7 @@ function Map() {
           }}
           position={{ lat: selectedAddress.lat, lng: selectedAddress.lng }}
         >
-          <div>Hehe</div>
+          <div style={{ color: "red" }}>{selectedAddress.name}</div>
         </InfoWindow>
       )}
     </GoogleMap>
